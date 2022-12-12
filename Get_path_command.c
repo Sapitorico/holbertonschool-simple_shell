@@ -37,6 +37,7 @@ command_t *Concatenate_Command(command_t *tokens_input)
 		free(command_concat);
 		dirs = dirs->next;
 	}
+
 	Free_List(head_dir);
 	return (NULL);
 }

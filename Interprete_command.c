@@ -36,7 +36,8 @@ int Run_Command(command_t *command, char *input, char **argv, int counter_error)
 		status = execve(args[0], args, environ);
 		if (status == -1)
 		{
-			fprintf(stderr, "%s: %d: %s: Permission denied\n", argv[0], counter_error, args[0]);
+			fprintf(stderr, "%s: %d: %s: Permission denied\n",
+					argv[0], counter_error, args[0]);
 		}
 		free(input);
 		Free_Grid(args);
