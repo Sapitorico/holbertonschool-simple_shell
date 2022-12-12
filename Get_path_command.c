@@ -37,9 +37,7 @@ command_t *Concatenate_Command(command_t *tokens_input)
 		free(command_concat);
 		dirs = dirs->next;
 	}
-
 	Free_List(head_dir);
-	return (NULL);
 }
 /**
  * Path_Tokenize - Divide directories into multiple elements
@@ -68,8 +66,7 @@ command_t *Path_Tokenize(void)
  * _getenv - This function obtains the value of an environment variable
  *
  * @name: Variable name
- * Return: The directories of the variable or null if it fails
- */
+ * Return: The directories of the variable or null if it  */
 char *_getenv(const char *name)
 {
 	int index = 0, dirs = 0;
