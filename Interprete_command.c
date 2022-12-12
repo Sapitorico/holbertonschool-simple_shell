@@ -24,7 +24,10 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		args[index] = command->args, command = command->next, index++;
 	child_pid = fork();
 	if (child_pid == -1)
-		perror(argv[0]), exit(1);
+	{
+		perror(argv[0]);
+		return(0);
+	}
 	else if (child_pid == 0)
 	{
 		status = execve(args[0], args, environ);
@@ -44,5 +47,5 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		}
 	}
 	Free_List(head), Free_Grid(args);
-	return (status);
+	return (0);
 }
