@@ -39,12 +39,9 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	}
 	else
 	{
-		wstatus = waitpid(child_pid, &status, 0);
+		wstatus = waitpid(child_pid, &status, WUNTRACED | WCONTINUED);
 		if (wstatus == -1)
-		{
-			Free_List(head), Free_Grid(args);
-			return (WEXITSTATUS(status));
-		}
+			Free_List(head), Free_Grid(args), exit(EXIT_FAILURE);
 	}
 	Free_List(head), Free_Grid(args);
 	return (status);
