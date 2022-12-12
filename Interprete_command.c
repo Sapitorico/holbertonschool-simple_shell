@@ -26,7 +26,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	if (child_pid == -1)
 	{
 		perror(argv[0]);
-		exit(1);
+		exit(0);
 	}
 	else if (child_pid == 0)
 	{
@@ -43,7 +43,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		if (wstatus == -1)
 		{
 			Free_List(head), Free_Grid(args);
-			exit(EXIT_FAILURE);
+			return(WEXITSTATUS(status));
 		}
 	}
 	Free_List(head), Free_Grid(args);
