@@ -26,13 +26,13 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	if (child_pid == -1)
 	{
 		perror(argv[0]);
-		return(1);
+		exit(1);
 	}
 	else if (child_pid == 0)
 	{
 		status = execve(args[0], args, environ);
 		if (status == -1)
-			fprintf(stderr, "%s: %d: %s: Permission denied\n",
+			printf("%s: %d: %s: Permission denied\n",
 					argv[0], count_error, args[0]);
 		free(input), Free_Grid(args), Free_List(head);
 		exit(EXIT_FAILURE);
@@ -43,7 +43,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		if (wstatus == -1)
 		{
 			Free_List(head), Free_Grid(args);
-			exit(EXIT_FAILURE);
+			return (0);
 		}
 	}
 	Free_List(head), Free_Grid(args);
