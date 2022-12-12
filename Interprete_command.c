@@ -11,7 +11,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 {
 	command_t *head = NULL;
 	int status = 0;
-	pid_t child_pid = 0;
+	pid_t child_pid = 0, wstatus = 0;
 	size_t counter = 0, index = 0;
 	char **args = NULL;
 
@@ -39,8 +39,8 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	}
 	else
 	{
-		waitpid(child_pid, &status, 0);
-		if (WIFEXITED(status) == 1)
+		wstatus = waitpid(child_pid, &status, 0);
+		if (wstatus == -1)
 		{
 			Free_List(head), Free_Grid(args);
 			return (WEXITSTATUS(status));
