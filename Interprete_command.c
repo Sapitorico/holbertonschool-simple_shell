@@ -26,7 +26,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	if (child_pid == -1)
 	{
 		perror(argv[0]);
-		return(0);
+		return(1);
 	}
 	else if (child_pid == 0)
 	{
@@ -41,8 +41,11 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	{
 		wstatus = waitpid(child_pid, &status, WUNTRACED | WCONTINUED);
 		if (wstatus == -1)
-			Free_List(head), Free_Grid(args), exit(EXIT_FAILURE);
+		{
+			Free_List(head), Free_Grid(args);
+			exit(EXIT_FAILURE);
+		}
 	}
 	Free_List(head), Free_Grid(args);
-	return (status);
+	return (0);
 }
