@@ -34,7 +34,7 @@ int main(__attribute((unused))int argc, char **argv)
 				free(tokens_input->args);
 				tokens_input->args = _calloc(size, sizeof(char));
 			}
-			fprintf(stderr, "%s: %d: %s: not found\n",
+			printf("%s: %d: %s: not found\n",
 					argv[0], count_error++, tokens_input->args);
 			Free_List(tokens_input);
 			free(input);
