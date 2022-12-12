@@ -48,7 +48,8 @@ command_t *Path_Tokenize(void);/*Divide the PATH into directories*/
 
 /*Interprete Command*/
 
-int Run_Command(command_t *command, char *input, char **argv, int counter_error);/*Execute the commands*/
+/*Execute the commands*/
+int Run_Command(command_t *command, char *input, char **argv, int count_error);
 
 /*Linked Lists*/
 

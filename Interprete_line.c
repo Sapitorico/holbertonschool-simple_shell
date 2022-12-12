@@ -10,7 +10,7 @@ int main(__attribute((unused))int argc, char **argv)
 {
 	command_t *tokens_input = NULL, *command = NULL;
 	char *input = NULL;
-	int status = 0, counter_error = 1, size = 0;
+	int status = 0, count_error = 1, size = 0;
 
 	while (1)
 	{
@@ -35,17 +35,17 @@ int main(__attribute((unused))int argc, char **argv)
 				tokens_input->args = _calloc(size, sizeof(char));
 			}
 			fprintf(stderr, "%s: %d: %s: not found\n",
-					argv[0], counter_error++, tokens_input->args);
+					argv[0], count_error++, tokens_input->args);
 			Free_List(tokens_input);
 			free(input);
 			continue;
 		}
-		status = Run_Command(command, input, argv, counter_error);
+		status = Run_Command(command, input, argv, count_error);
 		if (status > 0)
-			counter_error++;
+			count_error++;
 		free(input);
 	}
-	return (0);
+	exit(EXIT_SUCCESS);
 }
 /**
  * Read_Line - Read the input line and keep it in a buffer
