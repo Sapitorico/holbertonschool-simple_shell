@@ -43,7 +43,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		if (wstatus == -1)
 		{
 			Free_List(head), Free_Grid(args);
-			return (0);
+			exit(EXIT_FAILURE);
 		}
 	}
 	Free_List(head), Free_Grid(args);

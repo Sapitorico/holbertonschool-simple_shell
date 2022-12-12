@@ -10,7 +10,7 @@ int main(__attribute((unused))int argc, char **argv)
 {
 	command_t *tokens_input = NULL, *command = NULL;
 	char *input = NULL;
-	int status = 0, count_error = 1;
+	int status = 0, count_error = 1, size = 0;
 
 	while (1)
 	{
@@ -28,7 +28,13 @@ int main(__attribute((unused))int argc, char **argv)
 		command = Concatenate_Command(tokens_input);
 		if (!command)
 		{
-			printf("%s: %d: %s: not found\n",
+			if (!_strcmp(tokens_input->args, "\""))
+			{
+				size = _strlen(tokens_input->args);
+				free(tokens_input->args);
+				tokens_input->args = _calloc(size, sizeof(char));
+			}
+			fprintf(stderr, "%s: %d: %s: not found\n",
 					argv[0], count_error++, tokens_input->args);
 			Free_List(tokens_input);
 			free(input);
@@ -56,7 +62,7 @@ char *Read_Line(void)
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "\n", 1);
 		free(input);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
 	else if (!_strcmp(input, "exit\n"))
 	{
