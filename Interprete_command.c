@@ -1,4 +1,5 @@
 #include "main.h"
+#include <errno.h>
 /**
  * Run_Command - This function runs the command
  * @command: Command
@@ -24,18 +25,18 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		args[index] = command->args, command = command->next, index++;
 	child_pid = fork();
 	if (child_pid == -1)
-	{
-		perror(argv[0]);
-		exit(0);
-	}
+		perror(argv[0]), exit(0);
 	else if (child_pid == 0)
 	{
 		status = execve(args[0], args, environ);
 		if (status == -1)
+		{
 			printf("%s: %d: %s: Permission denied\n",
 					argv[0], count_error, args[0]);
-		free(input), Free_Grid(args), Free_List(head);
-		exit(EXIT_FAILURE);
+			if (errno == EACCES)
+				free(input), Free_Grid(args), Free_List(head), exit(126);
+		}
+		free(input), Free_Grid(args), Free_List(head), exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -43,7 +44,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		if (wstatus == -1)
 		{
 			Free_List(head), Free_Grid(args);
-			return(WEXITSTATUS(status));
+			return (WEXITSTATUS(status));
 		}
 	}
 	Free_List(head), Free_Grid(args);
