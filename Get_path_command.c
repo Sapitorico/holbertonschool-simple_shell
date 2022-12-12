@@ -38,6 +38,7 @@ command_t *Concatenate_Command(command_t *tokens_input)
 		dirs = dirs->next;
 	}
 	Free_List(head_dir);
+	exit(126);
 }
 /**
  * Path_Tokenize - Divide directories into multiple elements
