@@ -35,7 +35,7 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		exit(EXIT_FAILURE);
 	}
 	else
-		waitpid(child_pid, &status, 0);
+		wait(&status);
 	Free_List(head), Free_Grid(args);
 	return (0);
 }
