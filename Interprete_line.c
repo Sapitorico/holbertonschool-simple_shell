@@ -41,7 +41,6 @@ int main(__attribute((unused))int argc, char **argv)
 			not_file = 1;
 			continue;
 		}
-		not_file = 0;
 		status = Run_Command(command, input, argv, count_error);
 		if (status > 0)
 			count_error++;
