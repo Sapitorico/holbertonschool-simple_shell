@@ -2,7 +2,6 @@
 	<h1  class="page_title" align="center" width="50">Holberton Shell(FrankenShell)</h1>
 	This Shell is a basic command-line interpreter, that takes some basic comands and tries to look like a bash shell.
 	
-	<img src="https://flaviocopes.com/linux-command-ls/Screenshot%202019-02-09%20at%2018.49.52.png" width="600"/>
 </div>
 
 ---
