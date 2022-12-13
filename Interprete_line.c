@@ -1,4 +1,5 @@
 #include "main.h"
+#include <errno.h>
 /**
  * main - main function that executes the prompt
  *
@@ -10,13 +11,13 @@ int main(__attribute((unused))int argc, char **argv)
 {
 	command_t *tokens_input = NULL, *command = NULL;
 	char *input = NULL;
-	int status = 0, count_error = 1, size = 0;
+	int status = 0, count_error = 1, size = 0, not_file = 0;
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
 			write(STDERR_FILENO, PID, _strlen(PID));
-		input = Read_Line();
+		input = Read_Line(not_file);
 		if (!input)
 			break;
 		tokens_input = Input_Tokenize(input);
@@ -34,10 +35,11 @@ int main(__attribute((unused))int argc, char **argv)
 				free(tokens_input->args);
 				tokens_input->args = _calloc(size, sizeof(char));
 			}
-			printf("%s: %d: %s: not found\n",
+			fprintf(stderr , "%s: %d: %s: not found\n",
 					argv[0], count_error++, tokens_input->args);
 			Free_List(tokens_input);
 			free(input);
+			not_file = 1;
 			continue;
 		}
 		status = Run_Command(command, input, argv, count_error);
@@ -52,24 +54,50 @@ int main(__attribute((unused))int argc, char **argv)
  *
  * Return: buffer
  */
-char *Read_Line(void)
+char *Read_Line(int not_file)
+{
+	char *input = NULL;
+	size_t size = 0;
+
+	if (not_file == 0)
+	{
+		if (getline(&input, &size, stdin) == -1)/*Condition EOF*/
+		{
+			free(input);
+			exit(0);
+		}
+		else if (!_strcmp(input, "exit\n"))
+		{
+			free(input);
+			return (NULL);
+		}
+	}
+	else if (not_file == 1)
+	{
+		if (getline(&input, &size, stdin) == -1)/*Condition EOF*/
+		{
+			free(input);
+			exit(127);
+		}
+		else if (!_strcmp(input, "exit\n"))
+		{
+			free(input);
+			return (NULL);
+		}
+	}
+	return (input);
+}
+int Read_Error(void)
 {
 	char *input = NULL;
 	size_t size = 0;
 
 	if (getline(&input, &size, stdin) == -1)/*Condition EOF*/
 	{
-		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "\n", 1);
 		free(input);
-		exit(0);
+		exit(127);
 	}
-	else if (!_strcmp(input, "exit\n"))
-	{
-		free(input);
-		return (NULL);
-	}
-	return (input);
+	return (0);
 }
 /**
  * Input_Tokenize - divide the input into multiple nodes

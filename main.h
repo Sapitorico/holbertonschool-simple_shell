@@ -35,7 +35,7 @@ typedef struct command_s
 
 /*Interprete Line*/
 
-char *Read_Line(void);/*Function to read the input*/
+char *Read_Line(int not_file);/*Function to read the input*/
 
 command_t *Input_Tokenize(char *input);/*Tokenize the input*/
 
