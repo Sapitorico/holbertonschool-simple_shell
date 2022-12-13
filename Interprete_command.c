@@ -1,5 +1,4 @@
 #include "main.h"
-#include <errno.h>
 /**
  * Run_Command - This function runs the command
  * @command: Command
