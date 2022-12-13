@@ -30,10 +30,8 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	{
 		status = execve(args[0], args, environ);
 		if (status == -1)
-		{
-			printf("%s: %d: %s: Permission denied\n",
-					argv[0], count_error, args[0]);
-		}
+			fprintf(stderr, "%s: %d: %s: Permission denied\n",
+				argv[0], count_error, args[0]);
 		free(input), Free_Grid(args), Free_List(head), exit(EXIT_FAILURE);
 	}
 	else
