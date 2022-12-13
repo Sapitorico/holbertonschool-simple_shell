@@ -67,7 +67,8 @@ command_t *Path_Tokenize(void)
  * _getenv - This function obtains the value of an environment variable
  *
  * @name: Variable name
- * Return: The directories of the variable or null if it  */
+ * Return: The directories of the variable or null if it
+ */
 char *_getenv(const char *name)
 {
 	int index = 0, dirs = 0;

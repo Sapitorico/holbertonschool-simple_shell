@@ -1,5 +1,4 @@
 #include "main.h"
-#include <errno.h>
 /**
  * main - main function that executes the prompt
  *
@@ -35,13 +34,14 @@ int main(__attribute((unused))int argc, char **argv)
 				free(tokens_input->args);
 				tokens_input->args = _calloc(size, sizeof(char));
 			}
-			fprintf(stderr , "%s: %d: %s: not found\n",
+			fprintf(stderr, "%s: %d: %s: not found\n",
 					argv[0], count_error++, tokens_input->args);
 			Free_List(tokens_input);
 			free(input);
 			not_file = 1;
 			continue;
 		}
+		not_file = 0;
 		status = Run_Command(command, input, argv, count_error);
 		if (status > 0)
 			count_error++;
@@ -52,6 +52,7 @@ int main(__attribute((unused))int argc, char **argv)
 /**
  * Read_Line - Read the input line and keep it in a buffer
  *
+ * @not_file: Error indicator
  * Return: buffer
  */
 char *Read_Line(int not_file)
@@ -69,7 +70,7 @@ char *Read_Line(int not_file)
 		else if (!_strcmp(input, "exit\n"))
 		{
 			free(input);
-			return (NULL);
+			exit(2);
 		}
 	}
 	else if (not_file == 1)
@@ -82,22 +83,10 @@ char *Read_Line(int not_file)
 		else if (!_strcmp(input, "exit\n"))
 		{
 			free(input);
-			return (NULL);
+			exit(2);
 		}
 	}
 	return (input);
-}
-int Read_Error(void)
-{
-	char *input = NULL;
-	size_t size = 0;
-
-	if (getline(&input, &size, stdin) == -1)/*Condition EOF*/
-	{
-		free(input);
-		exit(127);
-	}
-	return (0);
 }
 /**
  * Input_Tokenize - divide the input into multiple nodes
