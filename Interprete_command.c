@@ -1,4 +1,5 @@
 #include "main.h"
+void _printenv(void);
 /**
  * Run_Command - This function runs the command
  * @command: Command
@@ -22,6 +23,12 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 		return (0);
 	while (command)
 		args[index] = command->args, command = command->next, index++;
+	if (!_strcmp(args[0], "/usr/bin/env"))
+	{
+		Free_Grid(args), Free_List(head);
+		_printenv();
+		return (0);
+	}
 	child_pid = fork();
 	if (child_pid == -1)
 		perror(argv[0]), exit(1);
@@ -45,4 +52,12 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	Free_List(head);
 	Free_Grid(args);
 	return (0);
+}
+void _printenv(void)
+{
+	unsigned int i;
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		printf("%s\n", environ[i]);
+	}
 }

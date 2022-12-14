@@ -26,7 +26,6 @@ int main(__attribute((unused))int argc, char **argv)
 			continue;
 		}
 		command = Concatenate_Command(tokens_input);
-		not_file = 0;
 		if (!command)
 		{
 			if (!_strcmp(tokens_input->args, "\""))
@@ -42,6 +41,8 @@ int main(__attribute((unused))int argc, char **argv)
 			not_file = 1;
 			continue;
 		}
+		else 
+			not_file = 0;
 		status = Run_Command(command, input, argv, count_error);
 		if (status > 0)
 			count_error++;
