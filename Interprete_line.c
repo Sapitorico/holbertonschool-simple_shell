@@ -110,8 +110,8 @@ command_t *Input_Tokenize(char *input)
 /**
  * Print_Environ - condition that prints in Environment
  *
- * @tokens_input: lista de arguemntos 
- * @input: input 
+ * @tokens_input: lista de arguemntos
+ * @input: input
  */
 void Print_Environ(command_t *tokens_input, char *input)
 {
