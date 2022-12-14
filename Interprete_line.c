@@ -41,8 +41,6 @@ int main(__attribute((unused))int argc, char **argv)
 			not_file = 1;
 			continue;
 		}
-		else
-			not_file = 0;
 		status = Run_Command(command, input, argv, count_error);
 		if (status > 0)
 			count_error++;
@@ -84,7 +82,7 @@ char *Read_Line(int not_file)
 		else if (!_strcmp(input, "exit\n"))
 		{
 			free(input);
-			exit(1);
+			exit(2);
 		}
 	}
 	return (input);
