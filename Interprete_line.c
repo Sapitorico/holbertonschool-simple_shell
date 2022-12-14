@@ -31,7 +31,6 @@ int main(__attribute((unused))int argc, char **argv)
 			continue;
 		}
 		command = Concatenate_Command(tokens_input);
-		printf("command");
 		if (!command)
 		{
 			fprintf(stderr, "%s: %d: %s: not found\n",
@@ -46,7 +45,6 @@ int main(__attribute((unused))int argc, char **argv)
 		status = Run_Command(command, input, argv, count_error);
 		if (status == 0)
 			count_error++;
-		printf("%d\n", status);
 		free(input);
 	}
 	exit(EXIT_SUCCESS);
