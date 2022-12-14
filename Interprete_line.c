@@ -43,8 +43,12 @@ int main(__attribute((unused))int argc, char **argv)
 		else
 			not_file = 0;
 		status = Run_Command(command, input, argv, count_error);
-		if (status > 0)
+		if (status == 0)
+		{
+			not_file = 1;
 			count_error++;
+		}
+		printf("%d\n", status);
 		free(input);
 	}
 	exit(EXIT_SUCCESS);
