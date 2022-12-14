@@ -26,6 +26,7 @@ int main(__attribute((unused))int argc, char **argv)
 			continue;
 		}
 		command = Concatenate_Command(tokens_input);
+		not_file = 0;
 		if (!command)
 		{
 			if (!_strcmp(tokens_input->args, "\""))
@@ -69,7 +70,7 @@ char *Read_Line(int not_file)
 		else if (!_strcmp(input, "exit\n"))
 		{
 			free(input);
-			exit(2);
+			exit(0);
 		}
 	}
 	else if (not_file == 1)
