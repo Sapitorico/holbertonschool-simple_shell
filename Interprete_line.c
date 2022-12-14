@@ -25,6 +25,13 @@ int main(__attribute((unused))int argc, char **argv)
 			free(input);
 			continue;
 		}
+		if (!_strcmp(tokens_input->args, "env"))
+		{
+			_printenv();
+			Free_List(tokens_input);
+			free(input);
+			continue;
+		}
 		command = Concatenate_Command(tokens_input);
 		if (!command)
 		{

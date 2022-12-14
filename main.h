@@ -68,6 +68,8 @@ void Free_Grid(char **grid);/*Free a array of pointers*/
 
 char *_getenv(const char *name);
 
+void _printenv(void);
+
 /*Auxiliary functions*/
 
 int _strlen(char *s);/*Long of a string*/
