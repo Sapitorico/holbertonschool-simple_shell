@@ -84,7 +84,7 @@ char *Read_Line(int not_file)
 			free(input);
 			exit(127);
 		}
-		else if (!_strcmp(input, "exit\n"))
+		else if (!_strcmp(input, "exit"))
 		{
 			free(input);
 			exit(2);
