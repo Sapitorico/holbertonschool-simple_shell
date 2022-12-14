@@ -69,7 +69,7 @@ char *Read_Line(int not_file)
 		else if (!_strcmp(input, "exit\n"))
 		{
 			free(input);
-			exit(0);
+			exit(2);
 		}
 	}
 	else if (not_file == 1)
