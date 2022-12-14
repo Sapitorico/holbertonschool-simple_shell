@@ -91,11 +91,14 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
+/**
+ * _printenv - function that the Environment prints
+ *
+ */
 void _printenv(void)
 {
-	unsigned int i;
-	for (i = 0; environ[i] != NULL; i++)
-	{
+	unsigned int i = 0;
+
+	for (; environ[i] != NULL; i++)
 		printf("%s\n", environ[i]);
-	}
 }

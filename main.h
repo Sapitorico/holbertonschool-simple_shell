@@ -70,6 +70,8 @@ char *_getenv(const char *name);
 
 void _printenv(void);
 
+void Print_Environ(command_t *tokens_input, char *input);
+
 /*Auxiliary functions*/
 
 int _strlen(char *s);/*Long of a string*/

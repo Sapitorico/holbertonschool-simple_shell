@@ -10,7 +10,7 @@ int main(__attribute((unused))int argc, char **argv)
 {
 	command_t *tokens_input = NULL, *command = NULL;
 	char *input = NULL;
-	int status = 0, count_error = 1, size = 0, not_file = 0;
+	int status = 0, count_error = 1, not_file = 0;
 
 	while (1)
 	{
@@ -27,20 +27,12 @@ int main(__attribute((unused))int argc, char **argv)
 		}
 		if (!_strcmp(tokens_input->args, "env"))
 		{
-			_printenv();
-			Free_List(tokens_input);
-			free(input);
+			Print_Environ(tokens_input, input);
 			continue;
 		}
 		command = Concatenate_Command(tokens_input);
 		if (!command)
 		{
-			if (!_strcmp(tokens_input->args, "\""))
-			{
-				size = _strlen(tokens_input->args);
-				free(tokens_input->args);
-				tokens_input->args = _calloc(size, sizeof(char));
-			}
 			fprintf(stderr, "%s: %d: %s: not found\n",
 					argv[0], count_error++, tokens_input->args);
 			Free_List(tokens_input);
@@ -48,7 +40,7 @@ int main(__attribute((unused))int argc, char **argv)
 			not_file = 1;
 			continue;
 		}
-		else 
+		else
 			not_file = 0;
 		status = Run_Command(command, input, argv, count_error);
 		if (status > 0)
@@ -114,4 +106,16 @@ command_t *Input_Tokenize(char *input)
 		token = strtok(NULL, DELIMS);
 	}
 	return (head);
+}
+/**
+ * Print_Environ - condition that prints in Environment
+ *
+ * @tokens_input: lista de arguemntos 
+ * @input: input 
+ */
+void Print_Environ(command_t *tokens_input, char *input)
+{
+	_printenv();
+	Free_List(tokens_input);
+	free(input);
 }
