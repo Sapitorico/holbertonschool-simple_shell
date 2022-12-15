@@ -44,5 +44,5 @@ int Run_Command(command_t *command, char *input, char **argv, int count_error)
 	}
 	Free_List(head);
 	Free_Grid(args);
-	return (0);
+	return (status);
 }

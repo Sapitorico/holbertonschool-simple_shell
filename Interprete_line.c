@@ -45,6 +45,8 @@ int main(__attribute((unused))int argc, char **argv)
 		status = Run_Command(command, input, argv, count_error);
 		if (status == 0)
 			count_error++;
+		if (status == 512)
+			not_file = 2;
 		free(input);
 	}
 	exit(EXIT_SUCCESS);
@@ -79,6 +81,19 @@ char *Read_Line(int not_file)
 		{
 			free(input);
 			exit(127);
+		}
+		else if (!_strcmp(input, "exit"))
+		{
+			free(input);
+			exit(2);
+		}
+	}
+	else if (not_file == 2)
+	{
+		if (getline(&input, &size, stdin) == -1)/*Condition EOF*/
+		{
+			free(input);
+			exit(2);
 		}
 		else if (!_strcmp(input, "exit"))
 		{
